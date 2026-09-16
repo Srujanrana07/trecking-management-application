@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>All Users</h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Contact</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for user in users %}
+
+            <tr>
+
+                <td>{{ user.id }}</td>
+
+                <td>{{ user.name }}</td>
+
+                <td>{{ user.email }}</td>
+
+                <td>{{ user.role }}</td>
+
+                <td>{{ user.status }}</td>
+
+                <td>{{ user.contact }}</td>
+
+                <td>
+                    {% if user.role != "admin" %}
+
+                        {% if user.status == "blacklisted" %}
+
+                            <a href="{{ url_for('admin.toggle_blacklist', user_id=user.id) }}"
+                            class="btn btn-success btn-sm">
+                                Remove Blacklist
+                            </a>
+
+                        {% else %}
+
+                            <a href="{{ url_for('admin.toggle_blacklist', user_id=user.id) }}"
+                            class="btn btn-danger btn-sm">
+                                Blacklist
+                            </a>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        -
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

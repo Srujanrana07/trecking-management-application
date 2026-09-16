@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>All Bookings</h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>Booking ID</th>
+                <th>User</th>
+                <th>Trek</th>
+                <th>Booking Date</th>
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% if bookings %}
+
+                {% for booking in bookings %}
+
+                <tr>
+
+                    <td>{{ booking.id }}</td>
+
+                    <td>
+                        {{ user_dict[booking.user_id].name }}
+                    </td>
+
+                    <td>
+                        {{ trek_dict[booking.trek_id].name }}
+                    </td>
+
+                    <td>
+                        {{ booking.booking_date }}
+                    </td>
+
+                    <td>
+
+                        {% if booking.status == "Booked" %}
+
+                            <span class="badge bg-success">
+                                {{ booking.status }}
+                            </span>
+
+                        {% elif booking.status == "Cancelled" %}
+
+                            <span class="badge bg-danger">
+                                {{ booking.status }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+                                {{ booking.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+
+                        No bookings found.
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Manage Trek</h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Trek Name</label>
+            <input type="text"
+                   class="form-control"
+                   value="{{ trek.name }}"
+                   readonly>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Location</label>
+            <input type="text"
+                   class="form-control"
+                   value="{{ trek.location }}"
+                   readonly>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Available Slots</label>
+            <input type="number"
+                   name="available_slots"
+                   value="{{ trek.available_slots }}"
+                   class="form-control"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+
+            <select name="status" class="form-select">
+
+                <option value="Open"
+                    {% if trek.status == "Open" %}selected{% endif %}>
+                    Open
+                </option>
+
+                <option value="Closed"
+                    {% if trek.status == "Closed" %}selected{% endif %}>
+                    Closed
+                </option>
+
+                <option value="Completed"
+                    {% if trek.status == "Completed" %}selected{% endif %}>
+                    Completed
+                </option>
+
+            </select>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Update Trek
+        </button>
+
+        <a href="{{ url_for('staff.assigned_treks') }}"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Available Treks
+    </h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>Name</th>
+                <th>Location</th>
+                <th>Difficulty</th>
+                <th>Duration</th>
+                <th>Slots</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Description</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% if treks %}
+
+                {% for trek in treks %}
+
+                <tr>
+
+                    <td>{{ trek.name }}</td>
+
+                    <td>{{ trek.location }}</td>
+
+                    <td>{{ trek.difficulty }}</td>
+
+                    <td>{{ trek.duration }} Days</td>
+
+                    <td>{{ trek.available_slots }}</td>
+
+                    <td>{{ trek.start_date }}</td>
+
+                    <td>{{ trek.end_date }}</td>
+
+                    <td>{{ trek.description }}</td>
+                    
+
+                    <td>
+
+                        <a href="{{ url_for('user.book_trek', trek_id=trek.id) }}"
+                           class="btn btn-success btn-sm">
+
+                            Book
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="8" class="text-center">
+
+                        No treks available.
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

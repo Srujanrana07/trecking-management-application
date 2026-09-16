@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+
+            <div class="list-group shadow">
+
+                <a href="{{ url_for('user.dashboard') }}"
+                   class="list-group-item list-group-item-action active">
+                    🏠 Dashboard
+                </a>
+
+                <a href="{{ url_for('user.my_bookings') }}"
+                class="list-group-item list-group-item-action">
+                    📋 My Bookings
+                </a>
+
+                <a href="{{ url_for('user.available_treks') }}"
+                class="list-group-item list-group-item-action">
+                    🏕 Available Treks
+                </a>
+
+                <a href="{{ url_for('auth.logout') }}"
+                   class="list-group-item list-group-item-action text-danger">
+                    🚪 Logout
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+
+            <h2>Welcome, {{ current_user.name }}</h2>
+
+            <p class="text-muted">
+                Explore available trekking adventures.
+            </p>
+
+            <!-- Statistics -->
+            <div class="row mt-4">
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card shadow text-center">
+
+                        <div class="card-body">
+
+                            <h1>{{ available_treks }}</h1>
+
+                            <h5>Available Treks</h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card shadow text-center">
+
+                        <div class="card-body">
+
+                            <h1>{{ booked_treks }}</h1>
+
+                            <h5>My Bookings</h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h3 class="mb-4">Available Treks</h3>
+
+            <div class="row">
+
+                {% if treks %}
+
+                    {% for trek in treks %}
+
+                    <div class="col-md-6 col-lg-4 mb-4">
+
+                        <div class="card shadow h-100">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">
+                                    {{ trek.name }}
+                                </h5>
+
+                                <p class="card-text">
+
+                                    <strong>📍 Location:</strong>
+                                    {{ trek.location }}
+
+                                    <br>
+
+                                    <strong>⭐ Difficulty:</strong>
+                                    {{ trek.difficulty }}
+
+                                    <br>
+
+                                    <strong>🗓 Duration:</strong>
+                                    {{ trek.duration }} Days
+
+                                    <br>
+
+                                    <strong>👥 Slots Left:</strong>
+                                    {{ trek.available_slots }}
+
+                                    <br>
+
+                                    <strong>📅 Start:</strong>
+                                    {{ trek.start_date }}
+
+                                    <br>
+
+                                    <strong>🏁 End:</strong>
+                                    {{ trek.end_date }}
+
+                                    <br>
+
+                                    <strong>🏁 Description:</strong>
+                                    {{ trek.description }}
+                                    
+                                </p>
+
+                            </div>
+                            <div class="card-footer bg-white">
+
+                                {% if trek.id in booked_trek_ids %}
+
+                                    <button class="btn btn-primary w-100" disabled>
+                                        ✅ Already Booked
+                                    </button>
+
+                                {% elif trek.available_slots <= 0 %}
+
+                                    <button class="btn btn-secondary w-100" disabled>
+                                        Fully Booked
+                                    </button>
+
+                                {% else %}
+
+                                    <a href="{{ url_for('user.book_trek', trek_id=trek.id) }}"
+                                    class="btn btn-success w-100">
+
+                                        Book Now
+
+                                    </a>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="col-12">
+
+                        <div class="alert alert-info">
+
+                            No treks available right now.
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2">
+
+        <div class="list-group shadow">
+
+            <a href="{{ url_for('admin.dashboard') }}"
+               class="list-group-item list-group-item-action active">
+                🏠 Dashboard
+            </a>
+
+            <a href="{{ url_for('admin.view_treks') }}"
+               class="list-group-item list-group-item-action">
+                🏕 Manage Treks
+            </a>
+
+            <a href="{{ url_for('admin.approve_staff') }}"
+               class="list-group-item list-group-item-action">
+                👨‍💼 Approve Staff
+            </a>
+
+            <a href="{{ url_for('admin.view_users') }}"
+               class="list-group-item list-group-item-action">
+                👥 Users
+            </a>
+
+            <a href="{{ url_for('admin.view_bookings') }}"
+               class="list-group-item list-group-item-action">
+                📖 View Bookings
+            </a>
+
+            <!-- NEW SEARCH LINK -->
+            <a href="{{ url_for('admin.search') }}"
+               class="list-group-item list-group-item-action">
+                🔍 Search
+            </a>
+
+            <a href="{{ url_for('auth.logout') }}"
+               class="list-group-item list-group-item-action text-danger">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10">
+
+        <h2 class="mb-1">
+            Welcome, {{ current_user.name }}
+        </h2>
+
+        <p class="text-muted">
+            Trekking Management Admin Dashboard
+        </p>
+
+
+        <!-- Statistics Cards -->
+        <div class="row mt-4">
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card shadow text-center border-success">
+
+                    <div class="card-body">
+
+                        <h2 class="text-success">
+                            {{ total_treks }}
+                        </h2>
+
+                        <p class="mb-0">
+                            Total Treks
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card shadow text-center border-primary">
+
+                    <div class="card-body">
+
+                        <h2 class="text-primary">
+                            {{ total_users }}
+                        </h2>
+
+                        <p class="mb-0">
+                            Users
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card shadow text-center border-warning">
+
+                    <div class="card-body">
+
+                        <h2 class="text-warning">
+                            {{ total_staff }}
+                        </h2>
+
+                        <p class="mb-0">
+                            Staff Members
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+
+                <div class="card shadow text-center border-danger">
+
+                    <div class="card-body">
+
+                        <h2 class="text-danger">
+                            {{ total_bookings }}
+                        </h2>
+
+                        <p class="mb-0">
+                            Bookings
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Search -->
+        <div class="card shadow mt-4">
+
+            <div class="card-header bg-dark text-white">
+                🔍 Search
+            </div>
+
+            <div class="card-body">
+
+                <form method="GET"
+                      action="{{ url_for('admin.search') }}">
+
+                    <div class="input-group">
+
+                        <input
+                            type="text"
+                            name="q"
+                            class="form-control"
+                            placeholder="Search trek, user, staff or ID..."
+                            required>
+
+                        <button
+                            type="submit"
+                            class="btn btn-success">
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- Quick Actions -->
+        <div class="card shadow mt-4">
+
+            <div class="card-header bg-success text-white">
+                Quick Actions
+            </div>
+
+            <div class="card-body">
+
+                <a href="{{ url_for('admin.add_trek') }}"
+                   class="btn btn-success me-2 mb-2">
+                    ➕ Add Trek
+                </a>
+
+                <a href="{{ url_for('admin.view_treks') }}"
+                   class="btn btn-primary me-2 mb-2">
+                    📋 View Treks
+                </a>
+
+                <a href="{{ url_for('admin.approve_staff') }}"
+                   class="btn btn-warning me-2 mb-2">
+                    👨‍💼 Approve Staff
+                </a>
+
+                <a href="{{ url_for('admin.view_users') }}"
+                   class="btn btn-info me-2 mb-2">
+                    👥 View Users
+                </a>
+
+                <a href="{{ url_for('admin.view_bookings') }}"
+                   class="btn btn-secondary me-2 mb-2">
+                    📖 View Bookings
+                </a>
+
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Recent Activity -->
+        <div class="card shadow mt-4 mb-4">
+
+            <div class="card-header">
+                Recent Activity
+            </div>
+
+            <div class="card-body">
+
+                <p class="text-muted mb-0">
+                    No recent activity available.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .home-hero {
+        min-height: 90vh;
+        margin: -1.5rem calc(50% - 50vw) 0;
+        padding: 120px 20px;
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+            url("https://www.traversnepal.com/storage/blogs/9/794300cc9032b8dc3db9c788957b5bb2.jpg");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .home-hero-content {
+        max-width: 760px;
+    }
+</style>
+
+<div class="home-hero text-center">
+
+    <div class="home-hero-content">
+
+    <h1>Welcome to Trekking Management</h1>
+
+    <p class="lead">
+        Book and manage trekking adventures easily.
+    </p>
+
+    <a href="{{ url_for('auth.login') }}" class="btn btn-success btn-lg me-2">
+        Login
+    </a>
+
+    <a href="{{ url_for('auth.register') }}" class="btn btn-outline-success btn-lg">
+        Register
+    </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

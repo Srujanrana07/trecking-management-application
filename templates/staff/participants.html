@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Participants</h2>
+
+    <h5 class="text-muted">
+        Trek: {{ trek.name }}
+    </h5>
+
+    <table class="table table-bordered table-hover mt-4">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Booking Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% if bookings %}
+
+                {% for booking in bookings %}
+
+                {% set participant = user_dict.get(booking.user_id) %}
+
+                <tr>
+
+                    <td>{{ participant.id }}</td>
+
+                    <td>{{ participant.name }}</td>
+
+                    <td>{{ participant.email }}</td>
+
+                    <td>{{ participant.contact }}</td>
+
+                    <td>{{ booking.booking_date }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+
+                        No participants have booked this trek.
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+        </tbody>
+
+    </table>
+
+    <a href="{{ url_for('staff.assigned_treks') }}"
+       class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        My Assigned Treks
+    </h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Difficulty</th>
+                <th>Available Slots</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% if treks %}
+
+                {% for trek in treks %}
+
+                <tr>
+
+                    <td>{{ trek.id }}</td>
+
+                    <td>{{ trek.name }}</td>
+
+                    <td>{{ trek.location }}</td>
+
+                    <td>{{ trek.difficulty }}</td>
+
+                    <td>{{ trek.available_slots }}</td>
+
+                    <td>{{ trek.status }}</td>
+
+                    <td>
+
+                        <a href="{{ url_for('staff.manage_trek', trek_id=trek.id) }}"
+                        class="btn btn-warning btn-sm">
+                            Manage
+                        </a>
+
+                        <a href="{{ url_for('staff.view_participants', trek_id=trek.id) }}"
+                        class="btn btn-success btn-sm">
+                            Participants
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="7" class="text-center">
+
+                        No treks assigned.
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

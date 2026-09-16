@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Assign Staff</h2>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <h4>{{ trek.name }}</h4>
+
+            <p><strong>Location:</strong> {{ trek.location }}</p>
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Select Staff
+                    </label>
+
+                    <select
+                        name="staff_id"
+                        class="form-select"
+                        required>
+
+                        {% for staff in approved_staff %}
+
+                            <option value="{{ staff.id }}">
+                                {{ staff.name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <button class="btn btn-success">
+                    Assign Staff
+                </button>
+
+                <a href="{{ url_for('admin.view_treks') }}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
